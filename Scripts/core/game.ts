@@ -5,11 +5,12 @@
  * @studentID 300818577
  * @date July 4, 2016
  * @description This file is the entry point for the game
- * @version 0.01 - Initial version of the boilerplate
+ * @version 0.1 - Initial version of the boilerplate
  */
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+namespace core{
 // Variable Declarations
 // make a reference to the canvas element
 let canvas:HTMLElement = document.getElementById("canvas");
@@ -79,4 +80,5 @@ function main():void {
 //wait until the window object is finished loading then call the init method
 window.addEventListener("load", init);
 
+}
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
