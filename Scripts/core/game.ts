@@ -12,6 +12,9 @@
 
 namespace core {
     // Variable Declarations
+
+    //declare a reference to the Preloader
+    export let assets: createjs.LoadQueue;
     // make a reference to the canvas element
     let canvas: HTMLElement = document.getElementById("canvas");
     // create a reference to a stage container
@@ -20,7 +23,27 @@ namespace core {
     let helloLabel: createjs.Text;
 
     let startButton: objects.Button; // reference to our button class
+    //asset manifest for images and sounds
+    //array to define assets
+    let assetData = [
+        {id: "startButton", src:"../../Assets/images/startButton.png"}
 
+    ];
+    /**
+     * This method preloads assets
+     * @method preload()
+     * @returns {void}
+     * 
+     */
+
+    function preload(){
+        assets= new createjs.LoadQueue(); //instantiates the loader
+        assets.installPlugin(createjs.Sound);
+        assets.on("complete",init, this);
+        assets.loadManifest(assetData);
+
+
+    }
     /**
      * This method is the entry point for the application
      * 
@@ -68,14 +91,14 @@ namespace core {
         stage.addChild(helloLabel);
 
         startButton = new objects.Button(
-            "../../Assets/images/startButton.png", 320, 340, true);
+            "startButton", 320, 340, true);
         stage.addChild(startButton);
 
         startButton.on("click", startButtonClick);
     }
 
     //wait until the window object is finished loading then call the init method
-    window.addEventListener("load", init);
+    window.addEventListener("load", preload);
 
 }
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

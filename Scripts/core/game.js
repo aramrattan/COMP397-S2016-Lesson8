@@ -9,11 +9,27 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 var core;
 (function (core) {
-    // Variable Declarations
     // make a reference to the canvas element
     var canvas = document.getElementById("canvas");
     var helloLabel;
     var startButton; // reference to our button class
+    //asset manifest for images and sounds
+    //array to define assets
+    var assetData = [
+        { id: "startButton", src: "../../Assets/images/startButton.png" }
+    ];
+    /**
+     * This method preloads assets
+     * @method preload()
+     * @returns {void}
+     *
+     */
+    function preload() {
+        core.assets = new createjs.LoadQueue(); //instantiates the loader
+        core.assets.installPlugin(createjs.Sound);
+        core.assets.on("complete", init, this);
+        core.assets.loadManifest(assetData);
+    }
     /**
      * This method is the entry point for the application
      *
@@ -54,12 +70,12 @@ var core;
     function main() {
         helloLabel = new objects.Label("Hello World!", "40px", "Consolas", "#000000", 320, 240);
         core.stage.addChild(helloLabel);
-        startButton = new objects.Button("../../Assets/images/startButton.png", 320, 340, true);
+        startButton = new objects.Button("startButton", 320, 340, true);
         core.stage.addChild(startButton);
         startButton.on("click", startButtonClick);
     }
     //wait until the window object is finished loading then call the init method
-    window.addEventListener("load", init);
+    window.addEventListener("load", preload);
 })(core || (core = {}));
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 //# sourceMappingURL=game.js.map
