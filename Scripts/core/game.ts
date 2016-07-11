@@ -23,6 +23,11 @@ namespace core {
     let helloLabel: createjs.Text;
 
     let startButton: objects.Button; // reference to our button class
+
+    //declare scene varibles
+    let currentScene: objects.Scene;
+    let scene:number; 
+
     //asset manifest for images and sounds
     //array to define assets
     let assetData = [
@@ -55,7 +60,10 @@ namespace core {
         stage.enableMouseOver(20);
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", gameLoop); // create an event listener for the tick event
-        main(); // call the main game function
+        
+        // setup the default scene
+        scene = config.Scene.MENU;
+        changeScene();
     }
 
     /**
@@ -66,7 +74,8 @@ namespace core {
      * @returns {void}
      */
     function gameLoop(event: createjs.Event): void {
-
+        //call the scene's update
+        currentScene.Update();
         stage.update(); // refreshes the stage
     }
 
@@ -79,22 +88,30 @@ namespace core {
         helloLabel.text = "clicked!";
     }
 
-    /**
-     * This is the main game method
-     * 
-     * @method main
-     * @returns {void}
-     */
-    function main(): void {
-        helloLabel = new objects.Label("Hello World!", "40px", "Consolas", "#000000",320,240);
+    function changeScene():void {
 
-        stage.addChild(helloLabel);
+        //Launch various scenes
+        switch(scene) {
+            //show the MENU scene
+            case config.Scene.MENU:
+            stage.removeAllChildren();
+            //menu = new scenes.Menu(); 
+            //currentScene = menu;
+            break;
+            //show the PLAY scene
+            case config.Scene.PLAY:
+            stage.removeAllChildren();
+            //play = new scen.Play();
+            //currentScene = play;
+            break;
+            //show the OVER scene
+            case config.Scene.OVER:
+            stage.removeAllChildren();
+            //over = new scene.Over();
+            //currentScene = over;
 
-        startButton = new objects.Button(
-            "startButton", 320, 340, true);
-        stage.addChild(startButton);
-
-        startButton.on("click", startButtonClick);
+            break;
+        }
     }
 
     //wait until the window object is finished loading then call the init method
