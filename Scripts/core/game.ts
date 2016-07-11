@@ -20,6 +20,7 @@ namespace core {
     // create a reference to a stage container
     export let stage: createjs.Stage;
 
+
     let helloLabel: createjs.Text;
 
     let startButton: objects.Button; // reference to our button class
@@ -27,6 +28,8 @@ namespace core {
     //declare scene varibles
     let currentScene: objects.Scene;
     let scene:number; 
+
+    let menu: scenes.Menu;
 
     //asset manifest for images and sounds
     //array to define assets
@@ -88,7 +91,7 @@ namespace core {
         helloLabel.text = "clicked!";
     }
 
-    function changeScene():void {
+    export function changeScene():void {
 
         //Launch various scenes
         switch(scene) {

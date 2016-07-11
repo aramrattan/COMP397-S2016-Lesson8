@@ -16,6 +16,7 @@ var core;
     //declare scene varibles
     var currentScene;
     var scene;
+    var menu;
     //asset manifest for images and sounds
     //array to define assets
     var assetData = [
@@ -91,6 +92,7 @@ var core;
                 break;
         }
     }
+    core.changeScene = changeScene;
     //wait until the window object is finished loading then call the init method
     window.addEventListener("load", preload);
 })(core || (core = {}));
